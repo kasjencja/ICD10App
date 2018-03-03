@@ -37,10 +37,25 @@
         />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:id="@+id/edit_text_diagnosis"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="45dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:hint="diagnoza"
+        android:textAlignment="center"
         />
+
+        <ImageView
+            android:id="@+id/microphone"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/edit_text_diagnosis"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_mic_black_24dp" />
 
     <Button
         android:layout_width="match_parent"
