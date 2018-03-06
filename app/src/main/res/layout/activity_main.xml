@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wprowadź swoją diagnozę do pola poniżej lub skorzystaj z opcji wyszukiwania głosowego."
+        android:text="Wprowadź swoją diagnozę do pola poniżej lub naciśnij symbol mikrofonu aby skorzystać z możliwości wyszukiwania głosowego."
         android:textSize="15dp"
         android:textAlignment="center"
         android:layout_below="@id/welcome"
@@ -54,10 +54,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_below="@id/edit_text_diagnosis"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_mic_black_24dp" />
 
     <Button
+        android:id="@+id/button_szukaj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
