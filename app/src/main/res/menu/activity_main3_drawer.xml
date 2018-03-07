@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drugs"
+            android:icon="@drawable/ic_menu_drugs"
+            android:title="Proponowane leki" />
+        <item
+            android:id="@+id/nav_therapy"
+            android:icon="@drawable/ic_menu_therapy"
+            android:title="Proponowane terapie" />
+    </group>
+
+    <item android:title="Kontakt i praca">
+        <menu>
+            <item
+                android:id="@+id/nav_duty"
+                android:icon="@drawable/ic_menu_duty"
+                android:title="Moje dyżury" />
+
+        </menu>
+    </item>
+
+</menu>
