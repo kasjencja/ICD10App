@@ -17,8 +17,11 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String BASE_URL =  "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&terms=";
+    private String BASE_URL =  "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&maxList&terms=";
     ArrayList<String> codes = new ArrayList<>();
+
+    private CodesAdapter codesAdapter;
+
 
     @OnClick(R.id.button_szukaj)
     void OnClick(){
