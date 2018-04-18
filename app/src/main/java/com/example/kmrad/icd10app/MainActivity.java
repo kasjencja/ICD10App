@@ -12,11 +12,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -24,6 +28,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,13 +47,15 @@ public class MainActivity extends AppCompatActivity {
     private String BASE_URL =  "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&maxList&terms=";
     ArrayList<String> codes = new ArrayList<>();
 
+    private CodesResponse codesResponse;
     private CodesAdapter codesAdapter;
     private OkHttpClient client;
 
     @OnClick(R.id.button_szukaj)
     void OnClick(){
         String query = editDiagnosis.getText().toString();
-        getData(query);
+        String dane = getData(query);
+        info.setText(dane);
         //Intent intent = new Intent(MainActivity.this, Main2Activity.class);
         //startActivity(intent);
     }
@@ -101,30 +109,28 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
-    private void getData(String query) {
+    private String readStream(InputStream is) {
         try {
-            URL url = new URL(BASE_URL+query);
-            InputStream openStream = url.openConnection().getInputStream();
-            //URLConnection conn = url.openConnection();
-            //BufferedReader br = new BufferedReader(
-            //        new InputStreamReader(conn.getInputStream())); //tutaj!
-
-            String inputLine;
-            while ((inputLine = br.readLine()) != null) {
-                inputLine += br.readLine();
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            int i = is.read();
+            while(i != -1) {
+                bo.write(i);
+                i = is.read();
             }
-            br.close();
-            info.setText(inputLine);
+            return bo.toString();
+        } catch (IOException e) {
+            return "";
         }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+    }
 
+    private String getData(String query) {
+        Ion.with(getApplicationContext()).load("http://www.your_URL.com").asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
 
-
+                tv.setText(result);
+            }
+        });
 
     }
 
