@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -54,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button_szukaj)
     void OnClick(){
         String query = editDiagnosis.getText().toString();
-        String dane = getData(query);
-        info.setText(dane);
+        getData(query);
         //Intent intent = new Intent(MainActivity.this, Main2Activity.class);
         //startActivity(intent);
     }
@@ -123,12 +124,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String getData(String query) {
-        Ion.with(getApplicationContext()).load("http://www.your_URL.com").asString().setCallback(new FutureCallback<String>() {
+    private void getData(String query) {
+        Ion.with(getApplicationContext()).load(BASE_URL+query).asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
 
-                tv.setText(result);
+                info.setText(result);
             }
         });
 
