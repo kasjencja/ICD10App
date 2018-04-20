@@ -4,14 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by kmrad on 17.04.2018.
@@ -19,9 +17,9 @@ import butterknife.OnClick;
 
 public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
 
-    ArrayList<Kody> list = new ArrayList<>();
+    ArrayList<Codes> list = new ArrayList<>();
 
-    CodesAdapter(ArrayList<Kody> kody) {
+    CodesAdapter(ArrayList<Codes> kody) {
         this.list = kody;
     }
 
@@ -60,6 +58,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
             Diagnoza.setText(name);
         }
         private void setPrice(String price) {
+
             KodICD.setText(price);
         }
     }
