@@ -1,7 +1,12 @@
 package com.example.kmrad.icd10app;
 
 
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by kmrad on 18.04.2018.
@@ -9,15 +14,29 @@ import java.util.List;
 
 public class CodesResponse {
 
-    private String status;
+    private String numberOfItems;
 
-    private List<String> message;
+    private ArrayList<Codes> responseCodes;
 
-    public String getStatus() {
-        return status;
+    public String getNumberOfItems(String response) {
+        String [] responseParts = response.split(Pattern.quote("["));
+        numberOfItems = responseParts[1];
+        return numberOfItems;
     }
 
-    public List<String> getMessage() {
-        return message;
+    public ArrayList<Codes> createCodesList(String response){
+        numberOfItems = getNumberOfItems(response);
+        String [] responseParts = response.split(Pattern.quote("["));
+        for (int i =4; i<=Integer.parseInt(numberOfItems)+3; i++){
+            String [] tempCodes = responseParts[i].split(Pattern.quote(","));
+            String code = tempCodes[0];
+            code = code.replace("\"","");
+            String name = tempCodes[1];
+            name = name.replace("\"","");
+            name = name.replace("]","");
+            responseCodes.add(new Codes(code, name));
+        }
+        return responseCodes;
     }
+
 }

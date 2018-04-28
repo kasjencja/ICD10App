@@ -40,13 +40,14 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
     public int getItemCount() {
         return list.size();
     }
+    
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.txt_view_nazwa)
-        TextView Diagnoza;
+        TextView diagnosis;
 
         @BindView(R.id.txt_view_icd)
-        TextView KodICD;
+        TextView code;
 
 
         public ViewHolder(View itemView) {
@@ -55,11 +56,9 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
         }
 
         private void setName(String name) {
-            Diagnoza.setText(name);
+            diagnosis.setText(name);
         }
-        private void setPrice(String price) {
-
-            KodICD.setText(price);
+        private void setPrice(String codeNumber) {code.setText(codeNumber);
         }
     }
 

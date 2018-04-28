@@ -14,6 +14,7 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 
 import butterknife.BindView;
@@ -23,18 +24,26 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String BASE_URL =  "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&maxList&terms=";
-    ArrayList<Codes> codes = new ArrayList<>();
-
+    ArrayList<Codes> codes;
     private CodesResponse codesResponse;
     private CodesAdapter codesAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+    }
 
     @OnClick(R.id.button_szukaj)
     void OnClick(){
         String query = editDiagnosis.getText().toString();
-        getData(query);
-        //Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-        //startActivity(intent);
+        if (query != null){
+            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            intent.putExtra("query", query);
+            startActivity(intent);
+        } else {}
+
     }
 
     @BindView(R.id.info)
@@ -66,25 +75,10 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     editDiagnosis.setText(result.get(0));
+
                 }
                 break;
         }
     }
 
-    private void getData(String query) {
-        Ion.with(getApplicationContext()).load(BASE_URL+query).asString().setCallback(new FutureCallback<String>() {
-            @Override
-            public void onCompleted(Exception e, String result) {
-                info.setText(result);
-            }
-        });
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-    }
 }

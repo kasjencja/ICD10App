@@ -7,11 +7,12 @@ package com.example.kmrad.icd10app;
 public class Codes {
 
     private String name;
-    private String numer;
+    private String number;
 
-    public Codes(String name, String numer){
+    public Codes(String number, String name){
+        this.number = number;
         this.name = name;
-        this.numer = numer;
+
     }
     public String getName() {
         return this.name;
@@ -22,10 +23,10 @@ public class Codes {
     }
 
     public String getCode() {
-        return this.numer;
+        return this.number;
     }
 
-    public void setCode(String numer) {
-        this.numer = numer;
+    public void setCode(String number) {
+        this.number = number;
     }
 }
