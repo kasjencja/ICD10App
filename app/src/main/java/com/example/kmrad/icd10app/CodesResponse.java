@@ -26,6 +26,8 @@ public class CodesResponse {
 
     public ArrayList<Codes> createCodesList(String response){
         numberOfItems = getNumberOfItems(response);
+        numberOfItems = numberOfItems.replace(",", "");
+        ArrayList<Codes> codesArrayList = new ArrayList<Codes>();
         String [] responseParts = response.split(Pattern.quote("["));
         for (int i =4; i<=Integer.parseInt(numberOfItems)+3; i++){
             String [] tempCodes = responseParts[i].split(Pattern.quote(","));
@@ -34,8 +36,9 @@ public class CodesResponse {
             String name = tempCodes[1];
             name = name.replace("\"","");
             name = name.replace("]","");
-            responseCodes.add(new Codes(code, name));
+            codesArrayList.add(new Codes(code, name));
         }
+        responseCodes = codesArrayList;
         return responseCodes;
     }
 

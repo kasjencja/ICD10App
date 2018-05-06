@@ -33,14 +33,14 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setName(list.get(position).getName());
-        holder.setPrice(list.get(position).getCode());
+        holder.setCode(list.get(position).getCode());
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
-    
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.txt_view_nazwa)
@@ -58,7 +58,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
         private void setName(String name) {
             diagnosis.setText(name);
         }
-        private void setPrice(String codeNumber) {code.setText(codeNumber);
+        private void setCode(String codeNumber) {code.setText(codeNumber);
         }
     }
 

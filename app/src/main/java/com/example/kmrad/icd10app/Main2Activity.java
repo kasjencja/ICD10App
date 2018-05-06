@@ -95,7 +95,7 @@ public class Main2Activity extends AppCompatActivity
         Ion.with(getApplicationContext()).load(BASE_URL+query).asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                responseCodes = codesResponse.createCodesList(result);
+                responseCodes = (codesResponse.createCodesList(result));
                 codesAdapter = new CodesAdapter(responseCodes);
                 //for (int i = 1; i<=codesAdapter.getItemCount(); i++){
                  //   Codes code = responseCodes.get(0);
