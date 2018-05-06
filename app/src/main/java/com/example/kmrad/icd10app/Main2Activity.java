@@ -3,6 +3,8 @@ package com.example.kmrad.icd10app;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,11 +21,17 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import butterknife.BindView;
+
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private String BASE_URL =  "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&maxList&terms=";
+
+
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
 
     private CodesResponse codesResponse = new CodesResponse();
     private ArrayList<Codes> responseCodes;
@@ -47,6 +55,9 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recycler.setLayoutManager(layoutManager);
 
         getData(query);
     }
@@ -97,10 +108,9 @@ public class Main2Activity extends AppCompatActivity
             public void onCompleted(Exception e, String result) {
                 responseCodes = (codesResponse.createCodesList(result));
                 codesAdapter = new CodesAdapter(responseCodes);
+                recycler.setAdapter(codesAdapter);
                 //for (int i = 1; i<=codesAdapter.getItemCount(); i++){
-                 //   Codes code = responseCodes.get(0);
-                  //  responseCodes.remove(0);
-                  //  codesAdapter
+                    //codesAdapter.onBindViewHolder(codesAdapter.onCreateViewHolder(getParent(ac), null), i);
                 //}
 
 
@@ -108,5 +118,6 @@ public class Main2Activity extends AppCompatActivity
         });
 
     }
+
 }
 

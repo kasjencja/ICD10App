@@ -18,15 +18,15 @@ public class Codes {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   //public void setName(String name) {
+   //     this.name = name;
+   // }
 
     public String getCode() {
         return this.number;
     }
 
-    public void setCode(String number) {
-        this.number = number;
-    }
+    //public void setCode(String number) {
+    //    this.number = number;
+    //}
 }
