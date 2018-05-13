@@ -26,7 +26,7 @@ public class CodesAdapter extends RecyclerView.Adapter<CodesAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.icd_item, null);
+                .inflate(R.layout.item, null);
         return new ViewHolder(itemLayoutView);
     }
 

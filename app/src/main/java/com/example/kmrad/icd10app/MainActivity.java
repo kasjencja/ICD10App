@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     void getSpeechInput(){
         Intent speechIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
         if(speechIntent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(speechIntent, 10);
         } else {
