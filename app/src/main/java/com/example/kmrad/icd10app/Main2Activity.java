@@ -16,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -24,6 +27,8 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+
 
 public class Main2Activity extends AppCompatActivity{
 
@@ -44,61 +49,19 @@ public class Main2Activity extends AppCompatActivity{
         String query = bundle.getString("query");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        //        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.addDrawerListener(toggle);
-        //toggle.syncState();
-
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(layoutManager);
-
+        //query=translateEnglish(query);
         getData(query);
     }
 
-    //@Override
-    //public void onBackPressed() {
-    //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    //    if (drawer.isDrawerOpen(GravityCompat.START)) {
-    //        drawer.closeDrawer(GravityCompat.START);
-    //    } else {
-    //        super.onBackPressed();
-    //    }
-    //}
-
-   // @Override
-   // public boolean onCreateOptionsMenu(Menu menu) {
-   //     getMenuInflater().inflate(R.menu.main2, menu);
-   //     return true;
-   // }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
-
-    //@Override
-    //public boolean onNavigationItemSelected(MenuItem item) {
-    //    int id = item.getItemId();
-
-    //    if (id == R.id.nav_drugs) {
-    //    } else if (id == R.id.nav_therapy) {
-
-    //    } else if (id == R.id.nav_duty) {
-
-    //    }
-
-    //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    //    drawer.closeDrawer(GravityCompat.START);
-     //   return true;
-    //}
 
 
     private void getData(String query) {
@@ -113,6 +76,18 @@ public class Main2Activity extends AppCompatActivity{
         });
 
     }
+
+    private String translateEnglish(String text){
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Translation translation =
+                translate.translate(
+                        text,
+                        Translate.TranslateOption.sourceLanguage("pl"),
+                        Translate.TranslateOption.targetLanguage("en"));
+        String result = translation.getTranslatedText();
+        return result;
+    }
+
 
 }
 
