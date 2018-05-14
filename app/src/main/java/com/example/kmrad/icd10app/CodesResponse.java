@@ -4,11 +4,8 @@ package com.example.kmrad.icd10app;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -47,12 +44,11 @@ public class CodesResponse {
     }
 
     private String translatePolish(String text){
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
-        Translation translation =
-                translate.translate(
-                        text,
-                        Translate.TranslateOption.sourceLanguage("en"),
-                        Translate.TranslateOption.targetLanguage("pl"));
+        TranslateOptions options = TranslateOptions.newBuilder()
+                .setApiKey("AIzaSyCcRcn_KHOp8VqO-P1HSmkNSjvS5tZegFA")
+						.build();
+        Translate trService = options.getService();
+        Translation translation = trService.translate(text, Translate.TranslateOption.sourceLanguage("en") ,Translate.TranslateOption.targetLanguage("pl"));
         String result = translation.getTranslatedText();
         return result;
     }
