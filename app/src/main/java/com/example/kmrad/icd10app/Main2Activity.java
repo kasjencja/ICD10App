@@ -1,14 +1,12 @@
 package com.example.kmrad.icd10app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -16,8 +14,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-
 
 public class Main2Activity extends AppCompatActivity{
 
@@ -41,42 +37,30 @@ public class Main2Activity extends AppCompatActivity{
         ButterKnife.bind(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(layoutManager);
-        //query=translateEnglish(query);
         getData(query);
     }
 
-
-    //@Override
-    //public boolean onOptionsItemSelected(MenuItem item) {
-    //    int id = item.getItemId();
-    //    return super.onOptionsItemSelected(item);
-    //}
-
-
     private void getData(String query) {
-        Ion.with(getApplicationContext()).load(BASE_URL+query).asString().setCallback(new FutureCallback<String>() {
-            @Override
-            public void onCompleted(Exception e, String result) {
-                responseCodes = (codesResponse.createCodesList(result));
-                codesAdapter = new CodesAdapter(responseCodes);
-                recycler.setAdapter(codesAdapter);
+            Ion.with(getApplicationContext()).load(BASE_URL + query).asString().setCallback(new FutureCallback<String>() {
+                @Override
+                public void onCompleted(Exception e, String result) {
+                        responseCodes = (codesResponse.createCodesList(result));
+                        if (responseCodes.get(0).getCode() == "errorMax") {
+                            Toast.makeText(Main2Activity.this, "Za dużo rekordów. Doprecyzuj zapytanie.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else if(responseCodes.get(0).getCode() == "errorMin"){
+                            Toast.makeText(Main2Activity.this, "Nie znaleziono rekordów.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                            startActivity(intent);
+                        }else{
+                            codesAdapter = new CodesAdapter(responseCodes);
+                            recycler.setAdapter(codesAdapter);
+                        }
+                    }
 
-            }
-        });
+            });
 
     }
-
-    private String translateEnglish(String text){
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
-        Translation translation =
-                translate.translate(
-                        text,
-                        Translate.TranslateOption.sourceLanguage("pl"),
-                        Translate.TranslateOption.targetLanguage("en"));
-        String result = translation.getTranslatedText();
-        return result;
-    }
-
-
 }
 

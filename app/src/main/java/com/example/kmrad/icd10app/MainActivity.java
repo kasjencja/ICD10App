@@ -9,24 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.regex.Pattern;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Codes> codes;
-    private CodesResponse codesResponse;
-    private CodesAdapter codesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button_szukaj)
     void OnClick(){
         String query = editDiagnosis.getText().toString();
-        if (query != null){
-            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+        if (query.isEmpty() == true){
+            Toast.makeText(this, "Podaj diagnozę!", Toast.LENGTH_SHORT).show();
+        } else {Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             intent.putExtra("query", query);
-            startActivity(intent);
-        } else {}
+            startActivity(intent);}
 
     }
 
@@ -59,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     void getSpeechInput(){
         Intent speechIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
         if(speechIntent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(speechIntent, 10);
         } else {

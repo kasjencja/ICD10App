@@ -1,9 +1,7 @@
 package com.example.kmrad.icd10app;
 
-
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
+import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -27,29 +25,31 @@ public class CodesResponse {
     public ArrayList<Codes> createCodesList(String response){
         numberOfItems = getNumberOfItems(response);
         numberOfItems = numberOfItems.replace(",", "");
-        ArrayList<Codes> codesArrayList = new ArrayList<Codes>();
-        String [] responseParts = response.split(Pattern.quote("["));
-        for (int i =4; i<=Integer.parseInt(numberOfItems)+3; i++){
-            String [] tempCodes = responseParts[i].split(Pattern.quote(","));
-            String code = tempCodes[0];
-            code = code.replace("\"","");
-            String name = tempCodes[1];
-            name = name.replace("\"","");
-            name = name.replace("]","");
-            name = translatePolish(name);
-            codesArrayList.add(new Codes(code, name));
+        if (Integer.parseInt(numberOfItems)>=300) {
+            ArrayList<Codes> codesArrayList = new ArrayList<Codes>();
+            codesArrayList.add(new Codes("errorMax", "errorMax"));
+            responseCodes = codesArrayList;
+        } else if(Integer.parseInt(numberOfItems)==0){
+            ArrayList<Codes> codesArrayList = new ArrayList<Codes>();
+            codesArrayList.add(new Codes("errorMin", "errorMin"));
+            responseCodes = codesArrayList;
+        }else {
+            ArrayList<Codes> codesArrayList = new ArrayList<Codes>();
+            String[] responseParts = response.split(Pattern.quote("["));
+            for (int i = 4; i <= Integer.parseInt(numberOfItems) + 3; i++) {
+                String[] tempCodes = responseParts[i].split(Pattern.quote(","));
+                String code = tempCodes[0];
+                code = code.replace("\"", "");
+                String name = tempCodes[1];
+                name = name.replace("\"", "");
+                name = name.replace("]", "");
+                codesArrayList.add(new Codes(code, name));
+                responseCodes = codesArrayList;
+            }
+
         }
-        responseCodes = codesArrayList;
         return responseCodes;
     }
 
-    private String translatePolish(String text){
-        TranslateOptions options = TranslateOptions.newBuilder()
-                .setApiKey("AIzaSyCcRcn_KHOp8VqO-P1HSmkNSjvS5tZegFA")
-						.build();
-        Translate trService = options.getService();
-        Translation translation = trService.translate(text, Translate.TranslateOption.sourceLanguage("en") ,Translate.TranslateOption.targetLanguage("pl"));
-        String result = translation.getTranslatedText();
-        return result;
-    }
+
 }
