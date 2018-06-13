@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     void OnClick(){
         String query = editDiagnosis.getText().toString();
         if (query.isEmpty() == true){
-            Toast.makeText(this, "Podaj diagnozę!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Specify the diagnosis!", Toast.LENGTH_SHORT).show();
         } else {Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             intent.putExtra("query", query);
             startActivity(intent);}
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         if(speechIntent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(speechIntent, 10);
         } else {
-            Toast.makeText(this, "Twój telefon nie umożliwia wyszukiwania głosowego!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Your phone doesn't support voice searching!", Toast.LENGTH_SHORT).show();
         }
     }
 

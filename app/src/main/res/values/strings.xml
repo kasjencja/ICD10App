@@ -9,5 +9,6 @@
     <string name="title_activity_main3">Main3Activity</string>
 
     <string name="app_welcome">Welcome to the ICD-10 APP</string>
-    <string name="users_manual">I order to find code and it\'s name, insert the diagnosis into the \"diagnosis\" field or press the microphone icon in order to use an option of voice searching.</string>
+    <string name="users_manual">In order to find code and it\'s name, insert the diagnosis into the \"diagnosis\" field or press the microphone icon in order to use an option of voice searching.</string>
+    <string name="no_results">No records found.</string>
 </resources>

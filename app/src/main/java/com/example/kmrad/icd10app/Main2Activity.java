@@ -50,7 +50,7 @@ public class Main2Activity extends AppCompatActivity{
                             Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                             startActivity(intent);
                         } else if(responseCodes.get(0).getCode() == "errorMin"){
-                            Toast.makeText(Main2Activity.this, "No records found.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, R.string.no_results, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                             startActivity(intent);
                         }else{
