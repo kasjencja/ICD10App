@@ -16,11 +16,11 @@ public class CodesResponse {
 
     private ArrayList<Codes> responseCodes;
 
-    public String getNumberOfItems(String response) {
-        String [] responseParts = response.split(Pattern.quote("["));
-        numberOfItems = responseParts[1];
-        return numberOfItems;
-    }
+    //public String getNumberOfItems(String response) {
+    //    String [] responseParts = response.split(Pattern.quote("["));
+    //    numberOfItems = responseParts[1];
+    //    return numberOfItems;
+    //}
 
     public ArrayList<Codes> createCodesList(String response){
         numberOfItems = getNumberOfItems(response);
