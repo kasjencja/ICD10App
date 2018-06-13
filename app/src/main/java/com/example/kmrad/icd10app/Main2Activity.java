@@ -46,11 +46,11 @@ public class Main2Activity extends AppCompatActivity{
                 public void onCompleted(Exception e, String result) {
                         responseCodes = (codesResponse.createCodesList(result));
                         if (responseCodes.get(0).getCode() == "errorMax") {
-                            Toast.makeText(Main2Activity.this, "Za dużo rekordów. Doprecyzuj zapytanie.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, "Too many records. Precise the diagnosis.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                             startActivity(intent);
                         } else if(responseCodes.get(0).getCode() == "errorMin"){
-                            Toast.makeText(Main2Activity.this, "Nie znaleziono rekordów.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, "No records found.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                             startActivity(intent);
                         }else{
